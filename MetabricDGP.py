@@ -2321,7 +2321,7 @@ def run_single(seed=SEED):
                 else "lower risk if PC increases"
             )
             plt.title(
-                f"{pc_name} — top gene loadings @ H={int(H_INT)} mo (raw r={r_raw:.2f})"
+                f"{pc_name} — top gene loadings @ H={int(H_INT)} mo (|r|={abs(r_raw):.2f})"
             )
 
             savefig(outdir_pc_pngs / f"{pc_name}_top20_riskOriented_H{int(H_INT)}.png")
