@@ -2266,12 +2266,8 @@ def run_single(seed=SEED):
     pc_feat_idx = np.arange(len(sel_names))
     # reuse previous consensus at H=120 from interp_df saved above
     interp120 = pd.read_csv(OUTDIR / "interpretability_H120.csv")
-
-    # map: feature name -> consensus score
-    cons_map = dict(zip(interp120["feature"], interp120["consensus_zsum"]))
-
-    # build a vector exactly aligned to sel_names (0.0 if missing)
-    pc_consensus = np.array([float(cons_map.get(name, 0.0)) for name in sel_names])
+    pc_mask = interp120["feature"].isin(sel_names)
+    pc_consensus = interp120.loc[pc_mask, "consensus_zsum"].to_numpy()
 
     # pick top PCs by this aligned vector
     order_pc = np.argsort(pc_consensus)[::-1]
